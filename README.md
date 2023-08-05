@@ -24,7 +24,7 @@ service is built using Spring Boot and employs modern security measures to prote
 - Spring Data JPA with PostgreSQL 12
 - Spring Security 6 with OAuth2
 - JUnit 5
-- Gradle
+- Gradle 8.2
 - Docker
 - Lombok
 
@@ -96,5 +96,4 @@ that supports making HTTP requests.
 
 The Simple Wallet Service is open-source and available under the [MIT License](./LICENSE). Feel free to use, modify, and
 distribute the code as per the license terms.
-
 
