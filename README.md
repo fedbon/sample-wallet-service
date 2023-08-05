@@ -24,7 +24,7 @@ service is built using Spring Boot and employs modern security measures to prote
 - Spring Data JPA with PostgreSQL 12
 - Spring Security 6 with OAuth2
 - JUnit 5
-- Gradle 8.2
+- Gradle
 - Docker
 - Lombok
 
