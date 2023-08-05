@@ -42,7 +42,7 @@ service is built using Spring Boot and employs modern security measures to prote
 
 ### Authentication
 
-The application uses OAuth 2.0 for authentication. To access the protected endpoints, you need to include an access
+The application uses OAuth2 for authentication. To access the protected endpoints, you need to include an access
 token in the Authorization header of your HTTP requests. The access token can be obtained by signing in or refreshing
 the token using the appropriate endpoints.
 
