@@ -96,4 +96,3 @@ that supports making HTTP requests.
 
 The Simple Wallet Service is open-source and available under the [MIT License](./LICENSE). Feel free to use, modify, and
 distribute the code as per the license terms.
-
