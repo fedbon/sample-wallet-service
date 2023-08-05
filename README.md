@@ -19,13 +19,12 @@ service is built using Spring Boot and employs modern security measures to prote
 
 ### Prerequisites
 
-- Java
-- Spring Boot 
-- Spring Data JPA with PostgreSQL
-- Spring Security with JWT Authentication
-- Spring MVC
-- JUnit Jupiter
-- Gradle
+- Java 17
+- Spring Boot 3
+- Spring Data JPA with PostgreSQL 12
+- Spring Security 6 with OAuth2
+- JUnit 5
+- Gradle 8.2
 - Docker
 - Lombok
 
@@ -38,7 +37,7 @@ service is built using Spring Boot and employs modern security measures to prote
     - spring.datasource.driver-class-name=org.postgresql.Driver
     - spring.datasource.username=usr
     - spring.datasource.password=pwd
-    - jwt.public.key=classpath:app.pub 
+    - jwt.public.key=classpath:app.pub
     - jwt.private.key=classpath:app.key
 
 ### Authentication
