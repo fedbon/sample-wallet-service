@@ -29,7 +29,7 @@ service is built using Spring Boot and employs modern security measures to prote
 - Docker
 - Lombok
 
-## Configuration
+### Configuration
 
 - Before running the API server, the database config should be updated inside the application.properties file.
 - Update the port number, username and password as per your local database config. The default:
@@ -41,7 +41,7 @@ service is built using Spring Boot and employs modern security measures to prote
     - jwt.public.key=classpath:app.pub 
     - jwt.private.key=classpath:app.key
 
-## Authentication
+### Authentication
 
 The application uses OAuth 2.0 for authentication. To access the protected endpoints, you need to include an access
 token in the Authorization header of your HTTP requests. The access token can be obtained by signing in or refreshing
