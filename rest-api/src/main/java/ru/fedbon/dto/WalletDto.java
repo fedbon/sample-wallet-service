@@ -11,7 +11,10 @@ import java.time.Instant;
 @AllArgsConstructor
 public class WalletDto {
     private Long walletId;
+
     private Double balance;
+
     private Instant createdDate;
+
     private Long userId;
 }

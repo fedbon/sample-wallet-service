@@ -33,10 +33,15 @@ import java.util.UUID;
 public class AuthServiceImpl implements AuthService {
 
     private final UserRepository userRepository;
+
     private final PasswordEncoder passwordEncoder;
+
     private final VerificationTokenRepository verificationTokenRepository;
+
     private final AuthenticationManager authenticationManager;
+
     private final JwtProvider jwtProvider;
+
     private final RefreshTokenServiceImpl refreshTokenService;
 
     @Override
@@ -60,6 +65,7 @@ public class AuthServiceImpl implements AuthService {
                 .userMobileNumber(signupRequest.getUserMobileNumber())
                 .build();
     }
+
     @Override
     public void verifyAccount(String token) {
         var verificationToken = verificationTokenRepository.findByToken(token);
@@ -69,6 +75,7 @@ public class AuthServiceImpl implements AuthService {
             throw new InvalidTokenException(ErrorMessage.INVALID_TOKEN);
         }
     }
+
     @Override
     public void fetchUserAndEnable(VerificationToken verificationToken) {
         var userMobileNumber = verificationToken.getUser().getUserMobileNumber();
@@ -77,6 +84,7 @@ public class AuthServiceImpl implements AuthService {
         user.setEnabled(true);
         userRepository.save(user);
     }
+
     @Override
     public AuthenticationResponse signin(SigninRequest signinRequest) {
         var authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
@@ -91,6 +99,7 @@ public class AuthServiceImpl implements AuthService {
                 .userMobileNumber(signinRequest.getUserMobileNumber())
                 .build();
     }
+
     @Override
     @Transactional(readOnly = true)
     public User getCurrentUser() {
@@ -99,6 +108,7 @@ public class AuthServiceImpl implements AuthService {
         return userRepository.findByUserMobileNumber(userMobileNumber)
                 .orElseThrow(() -> new UserNotFoundException(ErrorMessage.USER_NOT_FOUND + userMobileNumber));
     }
+
     @Override
     public AuthenticationResponse refreshToken(RefreshTokenRequest refreshTokenRequest) {
         refreshTokenService.validateRefreshToken(refreshTokenRequest.getRefreshToken());
@@ -110,9 +120,11 @@ public class AuthServiceImpl implements AuthService {
                 .userMobileNumber(refreshTokenRequest.getUserMobileNumber())
                 .build();
     }
+
     private String encodePassword(String password) {
         return passwordEncoder.encode(password);
     }
+
     String generateVerificationToken(User user) {
         var token = UUID.randomUUID().toString();
         var verificationToken = new VerificationToken();

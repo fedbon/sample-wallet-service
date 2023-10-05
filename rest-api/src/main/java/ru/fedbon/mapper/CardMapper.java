@@ -14,8 +14,9 @@ public class CardMapper {
 
     public Card mapDtoToCard(CardDto cardDto, Wallet wallet, User user) {
 
-        if (cardDto == null && wallet == null && user == null)
+        if (cardDto == null && wallet == null && user == null) {
             return null;
+        }
 
         var cardBuilder = Card.builder();
 
@@ -32,8 +33,9 @@ public class CardMapper {
 
     public CardDto mapCardToDto(Card card) {
 
-        if (card == null)
+        if (card == null) {
             return null;
+        }
 
         var cardDto = new CardDto();
 

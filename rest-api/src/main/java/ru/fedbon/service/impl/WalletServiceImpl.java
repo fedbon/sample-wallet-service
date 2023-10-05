@@ -20,14 +20,17 @@ import java.util.List;
 @Service
 @Slf4j
 @AllArgsConstructor
-@Transactional
 public class WalletServiceImpl implements WalletService {
 
 
     private final WalletRepository walletRepository;
+
     private final WalletMapper walletMapper;
+
     private final AuthServiceImpl authService;
+
     @Override
+    @Transactional
     public Wallet createNewWallet(WalletDto walletDto) {
         var wallet = walletRepository.save(walletMapper.mapDtoToWallet(walletDto, authService.getCurrentUser()));
 
@@ -35,6 +38,7 @@ public class WalletServiceImpl implements WalletService {
 
         return wallet;
     }
+
     @Override
     @Transactional(readOnly = true)
     public List<WalletDto> getAllWalletsForUser() {
@@ -47,6 +51,7 @@ public class WalletServiceImpl implements WalletService {
 
         return walletDtoList;
     }
+
     @Override
     @Transactional(readOnly = true)
     public Double getBalanceForWallet(Long walletId) {

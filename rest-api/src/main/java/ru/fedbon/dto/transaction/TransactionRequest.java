@@ -10,8 +10,12 @@ import ru.fedbon.model.transaction.TransactionType;
 @AllArgsConstructor
 public class TransactionRequest {
     private TransactionType transactionType;
+
     private Long walletId;
+
     private Long userId;
+
     private Double amount;
+
     private String recipientMobileNumber;
 }

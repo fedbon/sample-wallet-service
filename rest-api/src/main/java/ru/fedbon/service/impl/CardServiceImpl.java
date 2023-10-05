@@ -21,15 +21,18 @@ import java.util.List;
 @Service
 @Slf4j
 @AllArgsConstructor
-@Transactional
 public class CardServiceImpl implements CardService {
 
     private final WalletRepository walletRepository;
+
     private final CardRepository cardRepository;
+
     private final AuthServiceImpl authService;
+
     private final CardMapper cardMapper;
 
     @Override
+    @Transactional
     public Card saveCard(CardDto cardDto) {
         var wallet = walletRepository.findById(cardDto.getWalletId())
                 .orElseThrow(() -> new WalletNotFoundException(ErrorMessage.WALLET_NOT_FOUND + cardDto.getWalletId()));
@@ -40,6 +43,7 @@ public class CardServiceImpl implements CardService {
 
         return card;
     }
+
     @Override
     @Transactional(readOnly = true)
     public List<CardDto> getAllCardsForWallet(Long walletId) {

@@ -17,6 +17,7 @@ import java.time.Instant;
 public class JwtProvider {
 
     private final JwtEncoder jwtEncoder;
+
     @Getter
     @Value("${jwt.expiration.time}")
     private Long jwtExpirationInMillis;

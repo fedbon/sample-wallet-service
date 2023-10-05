@@ -14,8 +14,9 @@ public class WalletMapper {
 
     public Wallet mapDtoToWallet(WalletDto walletDto, User user) {
 
-        if (walletDto == null && user == null)
+        if (walletDto == null && user == null) {
             return null;
+        }
 
         var walletBuilder = Wallet.builder();
 
@@ -30,8 +31,9 @@ public class WalletMapper {
 
     public WalletDto mapWalletToDto(Wallet wallet) {
 
-        if (wallet == null)
+        if (wallet == null) {
             return null;
+        }
 
         var walletDto = new WalletDto();
 

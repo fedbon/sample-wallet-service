@@ -22,9 +22,8 @@ allprojects {
                 mavenBom "org.springframework.boot:spring-boot-dependencies:3.1.2"
                 mavenBom "org.testcontainers:testcontainers-bom:1.17.6"
             }
-            dependency("org.glassfish:jakarta.json:${Versions.glassfishJson}")
-
-            dependency("org.projectlombok:lombok:${Versions.lombok}")
+            dependency("org.glassfish:jakarta.json:${Versions.GLASSFISHJSON}")
+            dependency("org.projectlombok:lombok:${Versions.LOMBOK}")
         }
     }
 

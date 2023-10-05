@@ -10,10 +10,16 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CardDto {
     private Long cardId;
+
     private String cardNumber;
+
     private String cardHolderName;
+
     private String cvvCode;
+
     private String expiryDate;
+
     private Long walletId;
+
     private Long userId;
 }

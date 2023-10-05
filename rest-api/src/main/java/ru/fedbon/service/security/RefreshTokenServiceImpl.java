@@ -26,14 +26,16 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
 
         return refreshTokenRepository.save(refreshToken);
     }
+
     @Override
     public void validateRefreshToken(String token) {
         refreshTokenRepository.findByToken(token).ifPresentOrElse(
-                refreshToken -> {}, () -> {
+                refreshToken -> { }, () -> {
                     throw new InvalidTokenException(ErrorMessage.INVALID_TOKEN);
                 }
         );
     }
+
     @Override
     public void deleteRefreshToken(String token) {
         refreshTokenRepository.deleteByToken(token);

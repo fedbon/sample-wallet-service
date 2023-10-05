@@ -14,11 +14,18 @@ import java.time.Instant;
 @ToString(exclude = "dateTimeProcessed")
 public class TransactionResponse {
     private Long transactionId;
+
     private TransactionType transactionType;
+
     private Long walletId;
+
     private Long userId;
+
     private Double amount;
+
     private String recipientMobileNumber;
+
     private Instant dateTimeProcessed;
+
     private Boolean isCompleted;
 }

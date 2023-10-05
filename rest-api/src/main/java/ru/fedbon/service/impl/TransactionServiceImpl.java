@@ -23,64 +23,69 @@ import java.util.List;
 @Service
 @Slf4j
 @AllArgsConstructor
-@Transactional
 public class TransactionServiceImpl implements TransactionService {
 
 
     private final WalletRepository walletRepository;
+
     private final TransactionRepository transactionRepository;
+
     private final TransactionMapper transactionMapper;
+
     private final AuthServiceImpl authService;
 
     @Override
+    @Transactional
     public Transaction process(TransactionRequest transactionRequest) {
         return switch (transactionRequest.getTransactionType()) {
             case TRANSFER_WALLET_TO_WALLET -> transferFromWalletToWallet(transactionRequest);
             case DEPOSIT_CARD_TO_WALLET -> depositFromCardToWallet(transactionRequest);
         };
     }
+
     @Override
+    @Transactional
     public Transaction transferFromWalletToWallet(TransactionRequest transactionRequest) {
-        var wallet = walletRepository.findById(transactionRequest.getWalletId());
-        if (wallet.isPresent()) {
-            var walletInstance = wallet.get();
-            double newBalance = walletInstance.getBalance() - transactionRequest.getAmount();
-            if (newBalance >= 0) {
-                walletInstance.setBalance(newBalance);
-                walletRepository.save(walletInstance);
-            } else {
-                throw new InsufficientFundsException(
-                        ErrorMessage.WALLET_NOT_ENOUGH_MONEY + transactionRequest.getWalletId());
-            }
-            var transaction = transactionRepository.save(transactionMapper
-                    .mapDtoToTransaction(transactionRequest, walletInstance, authService.getCurrentUser()));
+        var walletInstance = walletRepository.findById(transactionRequest.getWalletId())
+                .orElseThrow(() -> new WalletNotFoundException(ErrorMessage.WALLET_NOT_FOUND +
+                        transactionRequest.getWalletId()));
 
-            log.info(Message.TRANSACTION_PROCESSED, transaction);
-
-            return transaction;
-        } else {
-            throw new WalletNotFoundException(ErrorMessage.WALLET_NOT_FOUND + transactionRequest.getWalletId());
-        }
-    }
-    @Override
-    public Transaction depositFromCardToWallet(TransactionRequest transactionRequest) {
-        var wallet = walletRepository.findById(transactionRequest.getWalletId());
-        if (wallet.isPresent()) {
-            var walletInstance = wallet.get();
-            double newBalance = walletInstance.getBalance() + transactionRequest.getAmount();
+        double newBalance = walletInstance.getBalance() - transactionRequest.getAmount();
+        if (newBalance >= 0) {
             walletInstance.setBalance(newBalance);
-
             walletRepository.save(walletInstance);
-            var transaction = transactionRepository.save(transactionMapper
-                    .mapDtoToTransaction(transactionRequest, walletInstance, authService.getCurrentUser()));
-
-            log.info(Message.TRANSACTION_PROCESSED, transaction);
-
-            return transaction;
         } else {
-            throw new WalletNotFoundException(ErrorMessage.WALLET_NOT_FOUND + transactionRequest.getWalletId());
+            throw new InsufficientFundsException(ErrorMessage.WALLET_NOT_ENOUGH_MONEY +
+                    transactionRequest.getWalletId());
         }
+
+        var transaction = transactionRepository.save(transactionMapper
+                .mapDtoToTransaction(transactionRequest, walletInstance, authService.getCurrentUser()));
+
+        log.info(Message.TRANSACTION_PROCESSED, transaction);
+
+        return transaction;
     }
+
+    @Override
+    @Transactional
+    public Transaction depositFromCardToWallet(TransactionRequest transactionRequest) {
+        var walletInstance = walletRepository.findById(transactionRequest.getWalletId())
+                .orElseThrow(() -> new WalletNotFoundException(ErrorMessage.WALLET_NOT_FOUND +
+                        transactionRequest.getWalletId()));
+
+        double newBalance = walletInstance.getBalance() + transactionRequest.getAmount();
+        walletInstance.setBalance(newBalance);
+
+        walletRepository.save(walletInstance);
+        var transaction = transactionRepository.save(transactionMapper
+                .mapDtoToTransaction(transactionRequest, walletInstance, authService.getCurrentUser()));
+
+        log.info(Message.TRANSACTION_PROCESSED, transaction);
+
+        return transaction;
+    }
+
     @Override
     @Transactional(readOnly = true)
     public List<TransactionResponse> getAllTransactionsForWallet(Long walletId) {

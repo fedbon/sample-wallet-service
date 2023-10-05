@@ -16,8 +16,9 @@ public class TransactionMapper {
 
     public Transaction mapDtoToTransaction(TransactionRequest transactionRequest, Wallet wallet, User user) {
 
-        if (transactionRequest == null && wallet == null && user == null)
+        if (transactionRequest == null && wallet == null && user == null) {
             return null;
+        }
 
         var transactionBuilder = Transaction.builder();
 
@@ -36,8 +37,9 @@ public class TransactionMapper {
 
     public TransactionResponse mapTransactionToDto(Transaction transaction) {
 
-        if (transaction == null)
+        if (transaction == null) {
             return null;
+        }
 
         var transactionResponse = new TransactionResponse();
 
