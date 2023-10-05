@@ -37,7 +37,6 @@ service is built using Spring Boot and employs modern security measures to prote
     - spring.datasource.driver-class-name=org.postgresql.Driver
     - spring.datasource.username=usr
     - spring.datasource.password=pwd
-- Use your own keys:
     - jwt.public.key=classpath:app.pub
     - jwt.private.key=classpath:app.key
 
