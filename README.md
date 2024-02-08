@@ -91,8 +91,3 @@ that supports making HTTP requests.
 - `GET /api/wallets`: Get all wallets for the user. (Response: ResponseEntity<List<WalletDto>>)
 - `GET /api/wallets/by-wallet/{walletId}`: Get balance for a given wallet. (Path variable: walletId, Response:
   ResponseEntity<String>)
-
-## License
-
-The Simple Wallet Service is open-source and available under the [MIT License](./LICENSE). Feel free to use, modify, and
-distribute the code as per the license terms.
