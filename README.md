@@ -1,4 +1,4 @@
-# Simple Wallet Service
+# Wallet Service
 
 Simple Wallet Service is a Java-based web application that provides wallet management and transaction processing
 functionalities. It allows users to create wallets, save cards, and perform various financial transactions securely. The
